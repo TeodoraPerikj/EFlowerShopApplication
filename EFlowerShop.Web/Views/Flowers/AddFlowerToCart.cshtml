@@ -1,0 +1,29 @@
+﻿@model EFlowerShop.Domain.DTO.AddToShoppingCartDto
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="text-center">Add selected flower to your shopping cart!</h3>
+
+<div class="row mt-4">
+    <div class="col-md-4 m-auto">
+        <form method="post" asp-action="AddFlowerToCart">
+            <input type="hidden" asp-for="SelectedFlowerId" />
+            <div class="form-group">
+                <label asp-for="SelectedFlower.FlowerName"></label>
+                <input disabled asp-for="SelectedFlower.FlowerName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Quantity"></label>
+                <input type="number" asp-for="Quantity" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
