@@ -1,39 +1,60 @@
-﻿@model List<EFlowerShop.Domain.DomainModels.Flower>
+﻿@model EFlowerShop.Domain.DTO.ViewModel;
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="row">
-        <a class="btn btn-success" asp-action="Create">Insert New Flower</a>
-    </div>
+<style>
+    body {
+        background-image: url('https://st3.depositphotos.com/1001411/33490/i/450/depositphotos_334900094-stock-photo-doronicum-flowers-on-painted-wooden.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 1370px;
+    }
+</style>
 
-    @for (int i = 0; i < Model.Count; i++)
+@*https://img5.goodfon.com/wallpaper/nbig/4/28/tsvety-romashki-white-yellow-flowers-background-goluboi-fon.jpg
+    https://st4.depositphotos.com/3994509/21311/i/1600/depositphotos_213118906-stock-photo-white-yellow-flowers-composition-blue.jpg*@
+
+<div class="container">
+    @if (Model.Role.Equals("Administrator"))
     {
-        var item = Model[i];
+        <div class="row">
+            <a class="btn btn-success" asp-action="Create">Add New Flower</a>
+        </div>
+    }
+
+    @for (int i = 0; i < Model.Flowers.Count; i++)
+    {
+        var item = Model.Flowers[i];
 
         if (i % 3 == 0)
         {
-            @:<div class="row">
+            @:<div class="row" style="margin-left: 30px;">
             }
 
             <div class="col-md-3 m-4">
-                <div class="card" style="width: 18rem; height: 30rem;">
-                    <img class="card-img-top" src="@item.FlowerImage" style="height: 50%;" alt="Image for flower!">
+                <div class="card" style="width: 17rem; height: 45rem;">
+                    <img class="card-img-top" src="@item.FlowerImage" style="height: 43%;" alt="Image for flower!">
 
                     <div class="card-body">
-                        <h3 class="card-title">@item.FlowerName</h3>
-                        <p class="card-text">@item.FlowerDescription</p>
+                        <h3 class="card-title text-center">@item.FlowerName</h3>
+                        <h5 class="card-text">@item.FlowerDescription</h5>
 
-
-                        <h6>Price: @item.FlowerPrice $</h6>
+                        <h5 class="font-weight-bold">Price: $@item.FlowerPrice</h5>
                     </div>
 
                     <div class="card-footer">
-                        <a asp-controller="Flowers" asp-action="AddFlowerToCart" asp-route-id="@item.Id" class="btn btn-info">Add to Cart</a>
-                        <a asp-controller="Flowers" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Edit</a>
+                        <a asp-controller="Flowers" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">View</a>
+                        <a asp-controller="Flowers" asp-action="AddFlowerToCart" asp-route-id="@item.Id" class="btn btn-warning">Add to Cart</a>
+
+                        @if (Model.Role.Equals("Administrator"))
+                        {
+                            <hr />
+                            <a asp-controller="Flowers" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info">Edit</a>
+                            <a asp-controller="Flowers" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        }
                     </div>
                 </div>
             </div>

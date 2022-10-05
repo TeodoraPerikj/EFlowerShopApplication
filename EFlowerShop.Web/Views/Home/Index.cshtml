@@ -1,8 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    body {
+        background-image: url('https://webneel.com/wallpaper/sites/default/files/images/01-2014/1-flower-wallpaper.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 1370px;
+    }
+</style>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center" style="width: 600px; margin-left: 245px; margin-top:95px;">
+    <h1 class="display-4 font-weight-bold">Welcome to the EFlowerShop Application</h1>
+
+    <a asp-controller="Flowers" asp-action="Index" class="btn btn-primary" style="margin-top: 30px;">View Flowers</a>
 </div>

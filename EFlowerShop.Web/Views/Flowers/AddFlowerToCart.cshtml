@@ -4,26 +4,42 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    body {
+        background-image: url('https://media.istockphoto.com/photos/garden-flowers-over-wood-picture-id582301878?k=20&m=582301878&s=612x612&w=0&h=vbti32p5mNnF8nqsjB1ufI0WyIvODRGZUjB715zhRJo=');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 1370px;
+    }
+</style>
 
-<h3 class="text-center">Add selected flower to your shopping cart!</h3>
+<div class="container mt-5">
+    <h3 class="text-center" style="margin-top:100px;">Add selected flower to your shopping cart!</h3>
 
-<div class="row mt-4">
-    <div class="col-md-4 m-auto">
-        <form method="post" asp-action="AddFlowerToCart">
-            <input type="hidden" asp-for="SelectedFlowerId" />
-            <div class="form-group">
-                <label asp-for="SelectedFlower.FlowerName"></label>
-                <input disabled asp-for="SelectedFlower.FlowerName" class="form-control" />
-            </div>
+    <div class="row mt-5">
+        <div class="col-md-4 m-auto">
+            <form method="post" asp-action="AddFlowerToCart">
+                <input type="hidden" asp-for="SelectedFlowerId" />
+                <div class="form-group">
+                    <label asp-for="SelectedFlower.FlowerName"></label>
+                    <input disabled asp-for="SelectedFlower.FlowerName" class="form-control" />
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Quantity"></label>
-                <input type="number" asp-for="Quantity" class="form-control" />
-            </div>
+                <div class="form-group">
+                    <label asp-for="Quantity"></label>
+                    <input type="number" asp-for="Quantity" class="form-control" />
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-success" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-success" /> |
+                    <a asp-action="Index" class="btn btn-primary">Back</a>
+                </div>
+            </form>
+
+            @*<div>
+                <a asp-action="Index" class="btn btn-primary">Back</a>
+            </div>*@
+        </div>
     </div>
+
 </div>

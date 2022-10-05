@@ -7,11 +7,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    body {
+        background-image: url('https://w0.peakpx.com/wallpaper/511/371/HD-wallpaper-yellow-tulips-wooden-background-light-boards-yellow-flowers-tulips-beautiful-flowers-spring.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 1375px;
+    }
+</style>
+
 <div class="container">
 
-
     <div class="row m-4">
-        <!--<a asp-controller="ShoppingCart" asp-action="Order" class="btn btn-info">Order Now</a>-->
+
         @if (Model.TotalPrice != 0)
         {
             <form asp-controller="ShoppingCart" asp-action="PayOrder" method="post">
@@ -44,7 +52,7 @@
                 @if (Model.Flowers.Count == 0)
                 {
                     <tr>
-                        <td colspan="5">No active Flowers</td>
+                        <td colspan="5" class="font-weight-bold">No active Flowers</td>
                     </tr>
                 }
                 else
@@ -55,9 +63,9 @@
 
                         <tr>
                             <th scope="row">@(i + 1)</th>
-                            <td>@item.Flower.FlowerName</td>
-                            <td>@item.Quantity</td>
-                            <td>$@item.Flower.FlowerPrice</td>
+                            <td class="font-weight-bold">@item.Flower.FlowerName</td>
+                            <td class="font-weight-bold">@item.Quantity</td>
+                            <td class="font-weight-bold">$@item.Flower.FlowerPrice</td>
                             <td><a asp-controller="ShoppingCart" asp-action="DeleteFromShoppingCart" asp-route-id="@item.FlowerId" class="btn btn-danger">Delete From Shopping Cart</a></td>
                         </tr>
                     }
@@ -65,14 +73,17 @@
             </tbody>
             <tfoot class="thead-dark">
                 <tr>
-                    <th scope="col">TotalPrice:</th>
+                    <th scope="col">Total Price:</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                    <th scope="col">@Model.TotalPrice $</th>
+                    <th scope="col">$@Model.TotalPrice</th>
                 </tr>
             </tfoot>
         </table>
+        <div class="form-group">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Back</a>
+        </div>
     </div>
 
 </div>

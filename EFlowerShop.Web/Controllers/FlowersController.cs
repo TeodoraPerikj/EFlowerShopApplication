@@ -10,24 +10,38 @@ using EFlowerShop.Repository;
 using EFlowerShop.Domain.DomainModels;
 using EFlowerShop.Domain.DTO;
 using EFlowerShop.Service.Interface;
+using EFlowerShop.Domain.Identity;
 
 namespace EFlowerShop.Web.Controllers
 {
     public class FlowersController : Controller
     {
         private readonly IFlowerService _flowerService;
+        private readonly IUserService _userService;
 
-        public FlowersController(IFlowerService flowerService)
+        public FlowersController(IFlowerService flowerService, IUserService userService)
         {
             _flowerService = flowerService;
+            _userService = userService;
         }
 
         // GET: Flowers
         public IActionResult Index()
         {
-            var allFlowers = this._flowerService.GetAllFlowers();
+            //var allFlowers = this._flowerService.GetAllFlowers();
 
-            return View(allFlowers);
+            ViewModel viewModel = new ViewModel();
+            viewModel.Flowers = this._flowerService.GetAllFlowers();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            EFlowerShopApplicationUser user = this._userService.Get(userId);
+
+            viewModel.Role = user.Role;
+
+            //return View(allFlowers);
+
+            return View(viewModel);
         }
 
         // GET: Flowers/Details/5
@@ -51,6 +65,15 @@ namespace EFlowerShop.Web.Controllers
         // GET: Flowers/Create
         public IActionResult Create()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            EFlowerShopApplicationUser user = this._userService.Get(userId);
+
+            if (user.Role.Equals("User"))
+            {
+                return RedirectToAction("Index", "Flowers");
+            }
+
             return View();
         }
 
@@ -72,6 +95,15 @@ namespace EFlowerShop.Web.Controllers
         // GET: Flowers/Edit/5
         public IActionResult Edit(Guid? id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            EFlowerShopApplicationUser user = this._userService.Get(userId);
+
+            if (user.Role.Equals("User"))
+            {
+                return RedirectToAction("Index", "Flowers");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -122,6 +154,15 @@ namespace EFlowerShop.Web.Controllers
         // GET: Flowers/Delete/5
         public IActionResult Delete(Guid? id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            EFlowerShopApplicationUser user = this._userService.Get(userId);
+
+            if (user.Role.Equals("User"))
+            {
+                return RedirectToAction("Index", "Flowers");
+            }
+
             if (id == null)
             {
                 return NotFound();

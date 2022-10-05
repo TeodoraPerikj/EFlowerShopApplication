@@ -49,6 +49,7 @@ namespace EFlowerShop.Web
             services.AddTransient<IFlowerService, FlowerService>();
             services.AddTransient<IShoppingCartService, ShoppingCartService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

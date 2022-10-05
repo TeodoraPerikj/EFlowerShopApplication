@@ -57,6 +57,17 @@ namespace EFlowerShop.Web.Controllers.Api
                         PhoneNumberConfirmed = true,
                         UserCart = new ShoppingCart()
                     };
+
+                    if (item.Email.Equals("administrator@gmail.com"))
+                    {
+                        user.Role = "Administrator";
+                    }
+                    else
+                    {
+                        user.Role = "User";
+                    }
+
+
                     var result = _userManager.CreateAsync(user, item.Password).Result;
 
                     status = status & result.Succeeded;
